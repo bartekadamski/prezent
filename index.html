@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
   <title>Prezent</title>
   <meta charset="UTF-8" />
@@ -8,70 +8,13 @@
   <style>
     @import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
   </style>
- 
 </head>
 <body>
-  <section class="section has-text-centered">
-    <div class="container">
-      <h1 class="title is-1">
-        Prezent
-      </h1>
-      <p class="subtitle">
-        Losowanie
-      </p>
-    </div>
-  </section>
-  <section class="section is-medium has-text-centered">
-    <h1 class="title">Osoby</h1>
-    <h2 class="subtitle">
-      Wpisz osoby, które mają wbrać udział w losowaniu
-    </h2>
-
-    <div class="columns is-multiline">
-      <div class="column is-half is-offset-one-quarter">
-        <input class="input is-medium" type="text" placeholder="wprowadź imię">
-        <div class="box">
-          Zenon
-        </div>
-      </div>
-      <div class="column is-half is-offset-one-quarter">
-        <div class="box">
-          Stefania
-        </div>
-      </div>
-    </div>
-
-
-    <div class="columns is-centered">
-      <div class="column is-full" style="background-color: blue">
-        <div class="table-container">
-          <table class="table">
-            <thead>
-              <tr>
-                <th><abbr title="liczba porządkowa">lp.</abbr></th>
-                <th></th>
-                <th>Zenon</th>
-                <th>Stefania</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th>1</th>
-                <td>Zenon</td>
-                <td>NIE</td>
-                <td>TAK</td>
-              </tr>
-              <tr>
-                <th>2</th>
-                <td>Stefania</td>
-                <td>TAK</td>
-                <td>NIE</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
+  <div id="app"/>
+  <script type="module">
+    import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+    import App from './app.js'
+    createApp(App).mount('#app')
+  </script>
 </body>
 </html>
