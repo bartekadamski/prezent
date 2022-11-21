@@ -1,13 +1,14 @@
-import Table from './table.js'
-import Input from './input.js'
+import TableComponent from './table_component.js'
+import InputComponent from './input_component.js'
+import { store } from './store.js'
 
 export default {
   components: {
-    Table, Input
+    TableComponent, InputComponent
   },
   data() {
     return {
-      names: ["Zenon",  "Stefania", "Karol", "Kamil", "Ola"]
+      store
     }
   },
   template: /*html*/
@@ -27,12 +28,7 @@ export default {
         <div class="block">
           1. Wpisz unikalną nazwę dla osoby, które ma brać udział w losowaniu
         </div>
-        <div class="block">
-          <Input/>
-        </div>
-        <div class="block">
-          <button class="button is-primary is-light">Zatwierdź osobę</button>
-        </div>
+        <InputComponent/>
       </div>
       <div class="column is-half is-offset-one-quarter">
         <div class="box">
@@ -41,7 +37,7 @@ export default {
           </div>
           <div class="block">
             <div class="tags">
-              <span v-for="name in names" class="tag is-medium">{{ name }}</span>
+              <span v-for="name in store.names" class="tag is-medium">{{ name }}</span>
             </div>
           </div>
         </div>
@@ -53,7 +49,7 @@ export default {
         2. Zaznacz kto może kogo wylosować
       </div>
       <div class="block">
-        <Table/>
+        <TableComponent/>
       </div>
     </section>
   </section>
