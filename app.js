@@ -26,7 +26,7 @@ export default {
     <div class="columns is-multiline">
       <div class="column is-half is-offset-one-quarter">
         <div class="block">
-          1. Wpisz unikalną nazwę dla osoby, które ma brać udział w losowaniu
+          1. Wpisz unikalną nazwę dla osoby, która ma brać udział w losowaniu
         </div>
         <InputComponent/>
       </div>
@@ -44,9 +44,9 @@ export default {
       </div>
     </div>
 
-    <section class="section has-text-centered">
+    <section class="section has-text-centered" v-if="store.names.length > 0">
       <div class="block">
-        2. Zaznacz kto może kogo wylosować
+        2. Zaznacz kogo może wylosować dana osoba
       </div>
       <div class="block">
         <TableComponent/>

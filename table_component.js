@@ -11,19 +11,25 @@ export default {
   <div class="columns">
     <div class="column is-full" >
       <div class="table-container">
-        <table class="table is-bordered is-striped" style="display: inline-block;">
-          <thead>
-            <tr>
-              <th>Kto?</th>
-              <th v-for="name in store.names"></th>
-            </tr>
-          </thead>
+        <table class="table is-striped is-hoverable" style="display: inline-block;">
           <tbody>
-            <tr v-for="name_for_row in store.names">
-              <th>{{name_for_row}}</th>
-              <td v-for="name_for_cell in store.names">
-                <span class="tag is-success" v-if="name_for_row !== name_for_cell">{{name_for_cell}}</span>
-                <span class="tag is-danger" v-else>{{name_for_cell}}</span>
+            <tr v-for="giver in store.matrix">
+              <th>{{giver.name}}</th>
+              <td v-for="name in store.names">
+                <span
+                  class="tag is-success"
+                  v-if="giver.possibleRecipients.includes(name)"
+                  @click="store.disableName(giver.name, name)"
+                >
+                  {{name}}
+                </span>
+                <span
+                  class="tag is-danger"
+                  v-else
+                  @click="store.enableName(giver.name, name)"
+                >
+                  {{name}}
+                </span>
               </td>
             </tr>
           </tbody>
