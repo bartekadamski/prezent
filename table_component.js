@@ -19,12 +19,12 @@ export default {
                 <span
                   class="tag is-success"
                   v-if="giver.possibleRecipients.includes(name)"
-                  @click="store.disableName(giver.name, name)"
+                  @click="store.disableName(giver.name, name, store.matrix)"
                 >
                   {{name}}
                 </span>
                 <span
-                  class="tag is-danger"
+                  class="tag is-light"
                   v-else
                   @click="store.enableName(giver.name, name)"
                 >

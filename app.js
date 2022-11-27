@@ -43,15 +43,41 @@ export default {
         </div>
       </div>
     </div>
+  </section>
 
-    <section class="section has-text-centered" v-if="store.names.length > 0">
-      <div class="block">
-        2. Zaznacz kogo może wylosować dana osoba
+  <section class="section has-text-centered" v-if="store.names.length > 0">
+    <div class="block">
+      2. Zaznacz kogo może wylosować dana osoba
+    </div>
+    <div class="block">
+      <TableComponent/>
+    </div>
+  </section>
+
+  <section class="section has-text-centered" v-if="store.names.length > 0">
+    <div class="block">
+      3. Rozpocznij losowanie
+    </div>
+    <div class="block">
+      <button
+        class="button is-primary is-light"
+        v-on:click="store.draw"
+      >
+        Zatwierdź
+      </button>
+    </div>
+    <div class="block">
+      <div v-if="store.error === true" class="notification is-danger">
+        Wybrane zależności wydają się uniemożliwiać poprawne losowanie.
+        Sprawdź je i spróbuj ponownie.
       </div>
-      <div class="block">
-        <TableComponent/>
+      <div v-else>
+        <div v-for="giver in store.matrixToDraw">
+          <b>{{giver.name}}: </b>
+          {{giver.hasDrawn}}
+        </div>
       </div>
-    </section>
+    </div>
   </section>
   `
 }
