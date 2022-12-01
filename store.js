@@ -105,12 +105,14 @@ export const store = reactive({
     let receiverNames = giversNamesThatHasDrawn.map((el) => { return el.hasDrawn })
     let giverNames = giversNamesThatHasDrawn.map((el) => { return el.name })
 
-    if(receiverNames.length == length && giverNames.length == length) {
-      console.log(receiverNames)
-      console.log(giverNames)
+    if(receiverNames.filter(store.arrayOnlyUnique).length == length
+        && giverNames.filter(store.arrayOnlyUnique).length == length) {
       return "TAK"
     } else {
       return "NIE"
     }
+  },
+  arrayOnlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
   }
 })
