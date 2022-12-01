@@ -77,13 +77,12 @@ export const store = reactive({
     return array[Math.floor(Math.random() * array.length)]
   },
   link(giver_name, receiver_name) {
-    let base = window.location.origin
     let params = new URLSearchParams(
       {
         "encoding": "base64",
         "for": encodeURIComponent(giver_name),
         "result": store.encode(receiver_name) })
-    return base + "?" + params.toString()
+    return window.location.origin + window.location.pathname + "?" + params.toString()
   },
   encode(input) {
     return window.btoa(encodeURIComponent(input))
