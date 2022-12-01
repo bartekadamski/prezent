@@ -5,6 +5,11 @@ export const store = reactive({
   nameInputValue: null,
   matrix: [],
   matrixToDraw: [],
+  error: false,
+  success: false,
+  encoding: null,
+  encodedString: null,
+  for: null,
   addNewName() {
     let newName = store.nameInputValue
     store.nameInputValue = null
@@ -26,7 +31,6 @@ export const store = reactive({
     })
     store.names.push(newName)
     store.names.sort()
-    store.error = false
   },
   disableName(giver, receiver, source) {
     let giver_data = store.findGiverByName(giver, source)
@@ -41,24 +45,29 @@ export const store = reactive({
   draw() {
     store.matrixToDraw = JSON.parse(JSON.stringify(store.matrix)) // deep copy
     store.error = false
+    store.success = false
 
     for (let i = 0; i < store.matrixToDraw.length; i++) {
       let giver = store.findGiverWithLeastPossibleRecipients()
       if (store.error) {
-        break
+        return
       }
 
       let receiver = store.randomArrayElement(giver.possibleRecipients)
       giver.hasDrawn = receiver
       store.matrixToDraw.forEach((el) => { store.disableName(el.name, receiver, store.matrixToDraw) })
     }
+
+    store.success = true
   },
   findGiverWithLeastPossibleRecipients() {
     let giversThatHasntDrawn = store.matrixToDraw.filter((el) => { return el.hasDrawn === undefined })
     let min = Math.min(...giversThatHasntDrawn.map((el) => { return el.possibleRecipients.length }))
 
     if(min == 0) {
-      return store.error = true;
+      store.error = true
+      store.success = false
+      return
     }
 
     let nextGiversToDraw = giversThatHasntDrawn.filter((el) => { return el.possibleRecipients.length === min })
@@ -66,5 +75,42 @@ export const store = reactive({
   },
   randomArrayElement(array) {
     return array[Math.floor(Math.random() * array.length)]
+  },
+  link(giver_name, receiver_name) {
+    let base = window.location.origin
+    let params = new URLSearchParams(
+      {
+        "encoding": "base64",
+        "for": encodeURIComponent(giver_name),
+        "result": store.encode(receiver_name) })
+    return base + "?" + params.toString()
+  },
+  encode(input) {
+    return window.btoa(encodeURIComponent(input))
+  },
+  decode(input) {
+    return decodeURIComponent(window.atob(input))
+  },
+  init() {
+    let params = new URLSearchParams(window.location.search)
+    store.encoding = params.get("encoding") || "base64"
+    if(params.get("result")) {
+      store.encodedString = store.decode(params.get("result"))
+      store.for = decodeURIComponent(params.get("for"))
+    }
+  },
+  checks() {
+    let length = store.names.length
+    let giversNamesThatHasDrawn = store.matrixToDraw.filter((el) => { return el.hasDrawn != undefined })
+    let receiverNames = giversNamesThatHasDrawn.map((el) => { return el.hasDrawn })
+    let giverNames = giversNamesThatHasDrawn.map((el) => { return el.name })
+
+    if(receiverNames.length == length && giverNames.length == length) {
+      console.log(receiverNames)
+      console.log(giverNames)
+      return "TAK"
+    } else {
+      return "NIE"
+    }
   }
 })
