@@ -19,6 +19,16 @@ export default {
   <section class="hero is-success is-fullheight" v-if="store.encodedString">
     <div class="hero-body">
       <div class="container has-text-centered">
+        <div class="columns is-mobile">
+          <div class="column"/>
+          <div class="column is-three-quarters">
+            <img
+              src="gift.jpeg"
+              alt="gift image"
+              id="gift-image">
+          </div>
+          <div class="column"/>
+        </div>
         <p class="subtitle">
           Osoba wylosowana dla
           <b>
